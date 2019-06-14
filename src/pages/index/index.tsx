@@ -1,24 +1,29 @@
-import { ComponentType } from 'react'
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
-import { observer, inject } from '@tarojs/mobx'
+import { ComponentType } from 'react';
+import Taro, { Component, Config } from '@tarojs/taro';
+import { View, Button, Text } from '@tarojs/components';
+import { observer, inject } from '@tarojs/mobx';
+import { IndexBusiness, IIndexBusiness } from '../../business/index';
 
 import './index.scss'
 
-type PageStateProps = {
-  counterStore: {
-    counter: number,
-    increment: Function,
-    decrement: Function,
-    incrementAsync: Function
-  }
+// type PageStateProps = {
+//   counterStore: {
+//     counter: number,
+//     increment: Function,
+//     decrement: Function,
+//     incrementAsync: Function
+//   }
+// }
+
+interface PageStateProps extends Partial<IIndexBusiness> {
+
 }
 
 interface Index {
   props: PageStateProps;
 }
 
-@inject('counterStore')
+@inject(IndexBusiness)
 @observer
 class Index extends Component {
 
@@ -33,37 +38,37 @@ class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentWillReact () {
+  componentWillReact() {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
   increment = () => {
-    const { counterStore } = this.props
-    counterStore.increment()
+    const { increment } = this.props
+    increment()
   }
 
   decrement = () => {
-    const { counterStore } = this.props
-    counterStore.decrement()
+    const { decrement } = this.props
+    decrement()
   }
 
   incrementAsync = () => {
-    const { counterStore } = this.props
-    counterStore.incrementAsync()
+    const { incrementAsync } = this.props
+    incrementAsync()
   }
 
-  render () {
-    const { counterStore: { counter } } = this.props
+  render() {
+    const { counter } = this.props
     return (
       <View className='index'>
         <Button onClick={this.increment}>+</Button>
@@ -75,4 +80,4 @@ class Index extends Component {
   }
 }
 
-export default Index  as ComponentType
+export default Index as ComponentType
