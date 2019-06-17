@@ -5,9 +5,9 @@ import { observer, inject } from '@tarojs/mobx';
 import { MeBusiness, IMeBusiness } from '../../business/me';
 import { AtTabBar } from 'taro-ui';
 import { routerMapping } from '../../common/utils';
+import { RouterType } from '../../common/enums';
 
 import './index.scss'
-import { RouterType } from '../../common/enums';
 
 interface IMeProps extends Partial<IMeBusiness> {
 

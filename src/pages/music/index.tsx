@@ -5,10 +5,10 @@ import { observer, inject } from '@tarojs/mobx';
 import { MusicBusiness, IMusicBusiness } from '../../business/music';
 import { AtTabBar } from 'taro-ui';
 import { Card } from '../../components';
-
-import './index.scss'
 import { RouterType } from '../../common/enums';
 import { routerMapping } from '../../common/utils';
+
+import './index.scss'
 
 interface IMusicProps extends Partial<IMusicBusiness> {
 
