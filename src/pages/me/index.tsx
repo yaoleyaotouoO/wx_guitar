@@ -1,18 +1,20 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Button, Text } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { MeBusiness, IMeBusiness } from '../../business/me';
 import { AtTabBar } from 'taro-ui';
+import { routerMapping } from '../../common/utils';
 
 import './index.scss'
+import { RouterType } from '../../common/enums';
 
 interface IMeProps extends Partial<IMeBusiness> {
 
 }
 
 interface IMeState {
-  current: number;
+  current: RouterType;
 }
 
 interface Me {
@@ -56,10 +58,10 @@ class Me extends Component {
 
   componentDidHide() { }
 
-  currentChange = (current: number) => {
+  currentChange = (current: RouterType) => {
     console.log("current change: ", current);
     Taro.redirectTo({
-      url: `/pages/${current ? 'me' : 'music'}/index`
+      url: routerMapping(current)
     })
   }
 

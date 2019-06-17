@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text, Button } from '@tarojs/components';
+import { View, Image, Text } from '@tarojs/components';
 
 import defaultGuitarPng from '../../images/default-guitar.png';
 
@@ -9,6 +9,7 @@ import { AtIcon } from 'taro-ui';
 interface ICardProps {
   songName: string;
   peopleName: string;
+  image: string;
 }
 
 interface ICardState {
@@ -27,12 +28,12 @@ class Card extends Component<ICardProps, ICardState> {
   }
 
   render() {
-    const { songName, peopleName } = this.props;
+    const { songName, peopleName, image } = this.props;
 
     return (
       <View className='at-row card'>
         <View className='at-col at-col-4'>
-          <Image className='card-border' src={defaultGuitarPng} />
+          <Image className='card-border' src={image || defaultGuitarPng} />
         </View>
         <View className='at-col at-col-8 card-right'>
           <Text>{songName}</Text>
@@ -41,15 +42,9 @@ class Card extends Component<ICardProps, ICardState> {
               <Text className='card-people-name'>{peopleName}</Text>
             </View>
             <View className='at-col at-col-5 card-heart'>
-              <AtIcon value='heart' size='30' color='#F00' onClick={this.collect}>
-              </AtIcon>
+              <AtIcon value='heart' size='30' color='#F00' onClick={this.collect} />
             </View>
           </View>
-          {/* <View>
-            
-            <AtIcon value='heart' size='30' color='#F00'></AtIcon>
-            <Button></Button>
-          </View> */}
         </View>
       </View>
     )

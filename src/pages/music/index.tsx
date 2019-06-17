@@ -7,13 +7,15 @@ import { AtTabBar } from 'taro-ui';
 import { Card } from '../../components';
 
 import './index.scss'
+import { RouterType } from '../../common/enums';
+import { routerMapping } from '../../common/utils';
 
 interface IMusicProps extends Partial<IMusicBusiness> {
 
 }
 
 interface IMusicState {
-  current: number;
+  current: RouterType;
 }
 
 interface Music {
@@ -75,7 +77,7 @@ class Music extends Component {
   currentChange = (current: number) => {
     console.log("current change: ", current);
     Taro.redirectTo({
-      url: `/pages/${current ? 'me' : 'music'}/index`
+      url: routerMapping(current)
     })
   }
 
@@ -93,6 +95,7 @@ class Music extends Component {
         <Card
           songName={'鸽子'}
           peopleName={'test'}
+          image={''}
         />
 
         <AtTabBar

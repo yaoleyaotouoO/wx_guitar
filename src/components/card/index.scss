@@ -5,7 +5,7 @@
 }
 
 .card-border {
-  margin: 20px;
+  padding: 20px;
   text-align: center;
   border: 2px;
   border-radius: 20px;
@@ -14,18 +14,18 @@
 }
 
 .card-right {
-  margin: 30px 0 0 0;
+  padding: 30px 0 0 0;
 }
 
 .card-bottom-right {
-  margin: 80px 0 0 0;
+  padding: 80px 0 0 0;
 }
 
 .card-heart {
-  margin: 0 0 0 180px;
+  padding: 0 0 0 100px;
 }
 
 .card-people-name {
-  color: #d3d3d3; 
+  color: #d3d3d3;
   font-size: 35px;
 }
