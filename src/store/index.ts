@@ -1,10 +1,13 @@
-import IndexStore from './index/index';
+import MusicStore from './music';
+import MeStore from './me';
 
 export class Store {
-  indexStore: IndexStore;
+  musicStore: MusicStore;
+  meStore: MeStore;
 
   constructor() {
-    this.indexStore = new IndexStore();
+    this.musicStore = new MusicStore();
+    this.meStore = new MeStore();
   }
 }
 

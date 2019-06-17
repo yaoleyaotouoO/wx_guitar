@@ -1,4 +1,4 @@
-import { Store } from "src/store";
+import { Store } from "../../store";
 
 export interface IStoreContainer {
   store: Store;

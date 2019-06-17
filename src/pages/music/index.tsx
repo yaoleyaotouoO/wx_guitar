@@ -2,30 +2,35 @@ import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import { IndexBusiness, IIndexBusiness } from '../../business/index';
+import { MusicBusiness, IMusicBusiness } from '../../business/music';
+import { AtTabBar } from 'taro-ui';
+import { Card } from '../../components';
 
 import './index.scss'
 
-// type PageStateProps = {
-//   counterStore: {
-//     counter: number,
-//     increment: Function,
-//     decrement: Function,
-//     incrementAsync: Function
-//   }
-// }
-
-interface PageStateProps extends Partial<IIndexBusiness> {
+interface IMusicProps extends Partial<IMusicBusiness> {
 
 }
 
-interface Index {
-  props: PageStateProps;
+interface IMusicState {
+  current: number;
 }
 
-@inject(IndexBusiness)
+interface Music {
+  props: IMusicProps;
+  state: IMusicState;
+}
+
+@inject(MusicBusiness)
 @observer
-class Index extends Component {
+class Music extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      current: 0
+    };
+  }
 
   /**
    * 指定config的类型声明为: Taro.Config
@@ -67,17 +72,41 @@ class Index extends Component {
     incrementAsync()
   }
 
+  currentChange = (current: number) => {
+    console.log("current change: ", current);
+    Taro.redirectTo({
+      url: `/pages/${current ? 'me' : 'music'}/index`
+    })
+  }
+
   render() {
-    const { counter } = this.props
+    const { current } = this.state;
+    const { counter } = this.props;
+
     return (
       <View className='index'>
         <Button onClick={this.increment}>+</Button>
         <Button onClick={this.decrement}>-</Button>
         <Button onClick={this.incrementAsync}>Add Async</Button>
-        <Text>{counter}</Text>
+        <Text>{counter()}</Text>
+
+        <Card
+          songName={'鸽子'}
+          peopleName={'test'}
+        />
+
+        <AtTabBar
+          fixed
+          tabList={[
+            { title: '曲谱', iconType: 'bullet-list' },
+            { title: '我的', iconType: 'user' }
+          ]}
+          onClick={this.currentChange}
+          current={current}
+        />
       </View>
     )
   }
 }
 
-export default Index as ComponentType
+export default Music as ComponentType

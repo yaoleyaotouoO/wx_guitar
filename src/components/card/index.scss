@@ -1,0 +1,31 @@
+@import "~taro-ui/dist/style/components/flex.scss";
+
+.card {
+  background-color: white;
+}
+
+.card-border {
+  margin: 20px;
+  text-align: center;
+  border: 2px;
+  border-radius: 20px;
+  width: 80%;
+  height: 200px;
+}
+
+.card-right {
+  margin: 30px 0 0 0;
+}
+
+.card-bottom-right {
+  margin: 80px 0 0 0;
+}
+
+.card-heart {
+  margin: 0 0 0 180px;
+}
+
+.card-people-name {
+  color: #d3d3d3; 
+  font-size: 35px;
+}
