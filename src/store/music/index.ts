@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import http, { Q } from '../../common/utils/http';
 
 export default class MusicStore {
   @observable counter: number = 0;
@@ -21,4 +22,17 @@ export default class MusicStore {
     }, 1000);
   }
 
+  @action
+  async getMusicList() {
+    const rawData = await this.api().getMusicList();
+    console.log("getMusicList rawData: ", rawData);
+  }
+
+  api() {
+    return {
+      getMusicList: (): Promise<string> => {
+        return Q(http.get(`GetMusicList`));
+      }
+    };
+  }
 }

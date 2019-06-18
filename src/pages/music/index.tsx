@@ -51,7 +51,11 @@ class Music extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    const { getMusicList } = this.props;
+
+    getMusicList();
+  }
 
   componentWillUnmount() { }
 

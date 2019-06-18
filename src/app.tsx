@@ -1,4 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro';
+import '@tarojs/async-await';
 import { Provider } from '@tarojs/mobx';
 import Index from './pages/music';
 import Store from './store';

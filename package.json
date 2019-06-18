@@ -26,6 +26,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@tarojs/async-await": "^1.3.2",
     "@tarojs/components": "1.3.0",
     "@tarojs/mobx": "1.3.0",
     "@tarojs/mobx-h5": "1.3.0",

@@ -11,7 +11,8 @@ export const MusicBusiness = ({ store }: IStoreContainer): IMusicBusiness => {
     counter: () => musicStore.counter,
     increment: () => musicStore.increment(),
     decrement: () => musicStore.decrement(),
-    incrementAsync: () => musicStore.incrementAsync()
+    incrementAsync: () => musicStore.incrementAsync(),
+    getMusicList: () => musicStore.getMusicList()
   };
 
   return {
@@ -26,4 +27,5 @@ export interface IMusicBusiness {
   increment: () => void;
   decrement: () => void;
   incrementAsync: () => void;
+  getMusicList: () => Promise<void>;
 }
