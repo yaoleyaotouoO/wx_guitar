@@ -1,6 +1,7 @@
 export enum RouterType {
   Music = 0,
-  Me = 1
+  Me = 1,
+  MusicDetai = 2
 }
 
 export enum HttpStatusType {

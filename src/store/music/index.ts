@@ -1,37 +1,27 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction }  from 'mobx';
 import http, { Q } from '../../common/utils/http';
+import { IMusic } from '../../common/interface/music';
+import LoadingData from '../common/loadingData';
 
 export default class MusicStore {
-  @observable counter: number = 0;
-
-  increment() {
-    console.log("xxx increment this: ", this);
-    this.counter++;
-  }
-
-  @action
-  decrement() {
-    console.log("xxx decrement");
-    this.counter--;
-  }
-
-  @action
-  incrementAsync() {
-    setTimeout(() => {
-      this.counter++;
-    }, 1000);
-  }
+  @observable musicList: LoadingData<IMusic[]> = new LoadingData([]);
 
   @action
   async getMusicList() {
-    const rawData = await this.api().getMusicList();
-    console.log("getMusicList rawData: ", rawData);
+    const musicListPromise = this.api().getMusicList();
+    const rawData = await musicListPromise;
+
+    runInAction(() => {
+      this.musicList.setLoadedData(rawData);
+    });
+
+    return musicListPromise;
   }
 
   api() {
     return {
-      getMusicList: (): Promise<string> => {
-        return Q(http.get(`GetMusicList`));
+      getMusicList: (): Promise<IMusic[]> => {
+        return Q(http.get(`getMusicList`));
       }
     };
   }

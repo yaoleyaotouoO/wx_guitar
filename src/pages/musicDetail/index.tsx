@@ -1,35 +1,38 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-import { MeBusiness, IMeBusiness } from '../../business/me';
+import { MusicDetailBusiness, IMusicDetailBusiness } from '../../business/musicDetail';
 import { AtTabBar } from 'taro-ui';
-import { routerMapping } from '../../common/utils';
 import { RouterType } from '../../common/enums';
+import { routerMapping } from '../../common/utils';
 
 import './index.scss'
 
-interface IMeProps extends Partial<IMeBusiness> {
+interface IMusicDetailProps extends Partial<IMusicDetailBusiness> {
 
 }
 
-interface IMeState {
+interface IMusicDetailState {
   current: RouterType;
 }
 
-interface Me {
-  props: IMeProps;
-  state: IMeState;
+interface MusicDetail {
+  props: IMusicDetailProps;
+  state: IMusicDetailState;
 }
 
-@inject(MeBusiness)
+@inject(MusicDetailBusiness)
 @observer
-class Me extends Component {
+class MusicDetail extends Component {
+  id: number = 0;
+  songName: string = ''
+
   constructor(props) {
     super(props);
 
     this.state = {
-      current: RouterType.Me
+      current: RouterType.Music
     };
   }
 
@@ -44,22 +47,19 @@ class Me extends Component {
     navigationBarTitleText: '首页'
   }
 
-  componentWillMount() { }
+  componentWillMount() {
+    console.log("params: ", this.$router.params);
+    const { id, songName } = this.$router.params;
 
-  componentWillReact() {
-    console.log('componentWillReact')
+    this.id = id;
+    this.songName = songName;
   }
 
-  componentDidMount() { }
+  componentDidMount() {
 
-  componentWillUnmount() { }
+  }
 
-  componentDidShow() { }
-
-  componentDidHide() { }
-
-  currentChange = (current: RouterType) => {
-    console.log("current change: ", current);
+  currentChange = (current: number) => {
     Taro.redirectTo({
       url: routerMapping(current)
     })
@@ -70,7 +70,7 @@ class Me extends Component {
 
     return (
       <View className='index'>
-        <Text>Me</Text>
+        <Image src={'https://wx.yaoleyaotou.xin/file/music/1.jpg'} />
         <AtTabBar
           fixed
           tabList={[
@@ -85,4 +85,4 @@ class Me extends Component {
   }
 }
 
-export default Me as ComponentType
+export default MusicDetail as ComponentType

@@ -1,13 +1,16 @@
 import MusicStore from './music';
 import MeStore from './me';
+import MusicDetailStore from './musicDetail';
 
 export class Store {
-  musicStore: MusicStore;
   meStore: MeStore;
+  musicStore: MusicStore;
+  musicDetailStore: MusicDetailStore;
 
   constructor() {
-    this.musicStore = new MusicStore();
     this.meStore = new MeStore();
+    this.musicStore = new MusicStore();
+    this.musicDetailStore = new MusicDetailStore();
   }
 }
 

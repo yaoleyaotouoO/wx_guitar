@@ -10,6 +10,7 @@ interface ICardProps {
   songName: string;
   peopleName: string;
   image: string;
+  seeMusic: () => void;
 }
 
 interface ICardState {
@@ -28,10 +29,10 @@ class Card extends Component<ICardProps, ICardState> {
   }
 
   render() {
-    const { songName, peopleName, image } = this.props;
+    const { songName, peopleName, image, seeMusic } = this.props;
 
     return (
-      <View className='at-row card'>
+      <View className='at-row card' onClick={seeMusic}>
         <View className='at-col at-col-4'>
           <Image className='card-border' src={image || defaultGuitarPng} />
         </View>

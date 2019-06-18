@@ -1,17 +1,15 @@
 import { IStoreContainer } from '../../common/interface';
+import { IMusic } from '../../common/interface/music';
+import LoadingData from '../../store/common/loadingData';
 
 export const MusicBusiness = ({ store }: IStoreContainer): IMusicBusiness => {
   const { musicStore } = store;
 
   const propsConnect = {
-    // counter: musicStore.counter,
+    musicList: musicStore.musicList
   };
 
   const dispatchConnect = {
-    counter: () => musicStore.counter,
-    increment: () => musicStore.increment(),
-    decrement: () => musicStore.decrement(),
-    incrementAsync: () => musicStore.incrementAsync(),
     getMusicList: () => musicStore.getMusicList()
   };
 
@@ -22,10 +20,6 @@ export const MusicBusiness = ({ store }: IStoreContainer): IMusicBusiness => {
 };
 
 export interface IMusicBusiness {
-  // counter: number;
-  counter: () => number;
-  increment: () => void;
-  decrement: () => void;
-  incrementAsync: () => void;
-  getMusicList: () => Promise<void>;
+  musicList: LoadingData<IMusic[]>;
+  getMusicList: () => Promise<IMusic[]>;
 }

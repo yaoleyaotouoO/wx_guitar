@@ -1,12 +1,13 @@
 import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Button, Text } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
 import { MusicBusiness, IMusicBusiness } from '../../business/music';
 import { AtTabBar } from 'taro-ui';
 import { Card } from '../../components';
 import { RouterType } from '../../common/enums';
 import { routerMapping } from '../../common/utils';
+import { toJS } from 'mobx';
 
 import './index.scss'
 
@@ -30,7 +31,7 @@ class Music extends Component {
     super(props);
 
     this.state = {
-      current: 0
+      current: RouterType.Music
     };
   }
 
@@ -45,63 +46,45 @@ class Music extends Component {
     navigationBarTitleText: '首页'
   }
 
-  componentWillMount() { }
-
-  componentWillReact() {
-    console.log('componentWillReact')
-  }
-
   componentDidMount() {
     const { getMusicList } = this.props;
 
     getMusicList();
   }
 
-  componentWillUnmount() { }
-
-  componentDidShow() { }
-
-  componentDidHide() { }
-
-  increment = () => {
-    const { increment } = this.props
-    increment()
-  }
-
-  decrement = () => {
-    const { decrement } = this.props
-    decrement()
-  }
-
-  incrementAsync = () => {
-    const { incrementAsync } = this.props
-    incrementAsync()
-  }
-
   currentChange = (current: number) => {
-    console.log("current change: ", current);
     Taro.redirectTo({
       url: routerMapping(current)
     })
   }
 
+  seeMusic = (id: number) => {
+    const { musicList } = this.props;
+
+    const findMusic = toJS(musicList.data).find(music => music.id === id);
+
+    Taro.redirectTo({
+      url: `${routerMapping(RouterType.MusicDetai)}?id=${id}&songName=${findMusic.songName}`
+    });
+  }
+
   render() {
     const { current } = this.state;
-    const { counter } = this.props;
+    const { musicList } = this.props;
 
     return (
       <View className='index'>
-        <Button onClick={this.increment}>+</Button>
-        <Button onClick={this.decrement}>-</Button>
-        <Button onClick={this.incrementAsync}>Add Async</Button>
-        <Text>{counter()}</Text>
-
-        <Card
-          songName={'鸽子'}
-          peopleName={'test'}
-          image={''}
-        />
-
+        {
+          musicList.data.map(music => {
+            return <Card
+              key={music.id}
+              songName={music.songName}
+              peopleName={music.peopleName}
+              image={''}
+              seeMusic={() => this.seeMusic(music.id)}
+            />
+          })
+        }
         <AtTabBar
           fixed
           tabList={[
